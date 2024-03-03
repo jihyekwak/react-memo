@@ -42,16 +42,20 @@
   font-size: 13px;
 }
 
-.memo-delete-btn {
+.memo-btns {
   align-self: end;
+}
+
+.memo-btn {
   border: none;
   border-radius: 3px;
   padding: 6px;
-  width: 15%;
   height: 25px;
+  width: 50px;
+  margin-left: 8px;
 }
 
-.create-form {
+.create-form, .edit-form {
   margin: 20px auto;
   width: 500px;
   display: flex;

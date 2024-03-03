@@ -13,7 +13,11 @@ function MemoList(props) {
     <h4 className='memo-title'>{props.memo.title}</h4>
     <p className='memo-body'>{props.memo.body}</p>
     <p className='memo-date'>{props.memo.createdAt}</p>
-    <button className='memo-delete-btn' onClick={()=>props.onDelete(props.memo.id)}>Delete</button>
+    <div className='memo-btns'>
+    <button className='memo-btn' onClick={()=>props.onEditHandler(props.memo)}>Edit</button>
+    <button className='memo-btn' onClick={()=>props.onDelete()}>Delete</button>
+    </div>
+    
   </div>
   )
 }
@@ -43,25 +47,59 @@ function Create(props) {
   )
 }
 
+function Edit(props) {
+  const [inputTitle, setInputTitle] = useState(props.memo.title);
+  const [inputBody, setInputBody] = useState(props.memo.body);
+  return (<div>
+    <form className='edit-form' onSubmit={(e)=> {
+      e.preventDefault();
+      props.onEdit(inputTitle, inputBody);
+      setInputTitle("");
+      setInputBody("");
+    }}>
+      <input type="text" name="title" placeholder='Title' value={inputTitle} onChange={(e) => setInputTitle(e.target.value)}></input>
+      <textarea type="text" name="body" placeholder='Take a memo' value={inputBody} onChange={(e) => setInputBody(e.target.value)}></textarea>
+      <input type="submit"></input>
+    </form>
+  </div>)
+}
+
 function App() {
   const [memos, setMemos] = useState([{id: 1, title: 'memo app', body: 'take a memo here', createdAt:'3/1/2024 14:40'}]);
-  console.log(memos)
+  const [mode, setMode] = useState(null);
+  const [editMemo, setEditMemo] = useState();
+  
   return (
     <div className="App">
       <Header></Header>
+
       <Create onCreate={(_id, _title, _body, _date) => {
         const newMemo = {id:_id, title: _title, body: _body, createdAt:_date};
         const newMemos = [...memos];
         newMemos.push(newMemo);
         setMemos(newMemos);
-        console.log(newMemos)
       }}></Create>
+
       <div className='memo-list'>
-        {memos.map(memo => <MemoList key={memo.createdAt} memo={memo} onDelete={(_id) => {
-          const newMomo = memos.filter(memo => memo.id !== _id)
-          setMemos(newMomo);
-        }}></MemoList>)}
+        {memos.map(memo => <>
+          <MemoList key={memo.createdAt} memo={memo} 
+          onDelete={() => {
+            const newMemos = memos.filter(m => m !== memo)
+            setMemos(newMemos);
+          }}
+          onEditHandler={(memo) => {
+            setMode('EDIT');
+            setEditMemo(memo);
+          }}
+          ></MemoList>
+        </>)}
       </div>
+
+      {mode === 'EDIT' ? <Edit memo={editMemo} onEdit={(_title, _body)=>{
+          const newMemos = memos.map(m => m === editMemo? Object.assign(m, {title:_title, body:_body}):m)
+          setMemos(newMemos);
+          setMode(null)
+        }}></Edit>:null}
       
     </div>
   );
