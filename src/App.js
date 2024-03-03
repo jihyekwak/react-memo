@@ -13,6 +13,7 @@ function MemoList(props) {
     <h4 className='memo-title'>{props.memo.title}</h4>
     <p className='memo-body'>{props.memo.body}</p>
     <p className='memo-date'>{props.memo.createdAt}</p>
+    <button className='memo-delete-btn' onClick={()=>props.onDelete(props.memo.id)}>Delete</button>
   </div>
   )
 }
@@ -56,7 +57,10 @@ function App() {
         console.log(newMemos)
       }}></Create>
       <div className='memo-list'>
-        {memos.map(memo => <MemoList key={memo.createdAt} memo={memo}></MemoList>)}
+        {memos.map(memo => <MemoList key={memo.createdAt} memo={memo} onDelete={(_id) => {
+          const newMomo = memos.filter(memo => memo.id !== _id)
+          setMemos(newMomo);
+        }}></MemoList>)}
       </div>
       
     </div>
