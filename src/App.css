@@ -1,3 +1,77 @@
 .App {
   text-align: center;
 }
+
+.header {
+  text-align: left;
+  padding-left: 20px;
+  border-bottom: 2px solid lightgray;
+}
+
+.header h1 {
+  margin: 8px 0;
+}
+
+.memo-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.memo-card {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 10px;
+  width: 475px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.memo-title {
+  margin: 5px 0;
+}
+
+.memo-body {
+  overflow-wrap: break-word;
+}
+.memo-date {
+  margin: 20px 0 10px 0;
+  font-size: 13px;
+}
+
+.create-form {
+  margin: 20px auto;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* gap: 10px; */
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  box-sizing: border-box
+  
+}
+
+input, textarea {
+  width: 95%;
+  box-sizing: border-box;
+  border: none;
+  padding: 12px 10px;
+  color: black;
+}
+
+textarea {
+  height: 50px;
+}
+
+input[type='submit'] {
+  height: 25px;
+  padding: 6px;
+  width: 20%;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin: 5px 5px;
+}
